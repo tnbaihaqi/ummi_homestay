@@ -1,0 +1,16 @@
+{
+  "name": "ummi-homestay",
+  "version": "1.0.0",
+  "description": "Ummi Homestay Wakaf Che Yeh Website",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve -s . -l 3000",
+    "build": "echo 'No build step required for static site'"
+  },
+  "dependencies": {
+    "serve": "^14.2.0"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
