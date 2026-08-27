@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="ms">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UMMI HOMESTAY KOTA BHARU</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2B48C;
+            --accent-color: #A0522D;
+            --text-color: #3E2723;
+            --light-bg: #F5F5DC;
+            --medium-brown: #CD853F;
+            --dark-brown: #654321;
+            --cream: #FAEBD7;
+            --light-tan: #E8D9B0;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--light-bg), var(--cream));
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--accent-color), var(--dark-brown));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            margin-top: 100px;
+            padding: 20px;
+        }
+
+        .feature-card {
+            position: relative;
+            overflow: hidden;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5em;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        /* Image styles for amenities */
+        .amenity-card {
+            height: 250px;
+            padding: 0;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .amenity-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .amenity-card:hover .amenity-image {
+            transform: scale(1.05);
+        }
+
+        .amenity-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            color: white;
+            margin: 0;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .amenity-card:hover .amenity-title {
+            background: linear-gradient(transparent, rgba(139, 69, 19, 0.8));
+        }
+
+        .image-gallery {
+            margin: 40px 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            height: 250px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            right: 0;
+            background: rgba(139, 69, 19, 0.8);
+            padding: 15px;
+            color: white;
+            transition: bottom 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            bottom: 0;
+        }
+
+        .whatsapp-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+        }
+
+        .whatsapp-button a {
+            background: linear-gradient(45deg, #128C7E, #25d366);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-button a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.6);
+        }
+
+        .feedback-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .feedback-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .feedback-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            object-fit: cover;
+            border: 3px solid var(--accent-color);
+        }
+
+        .rating {
+            color: #FFD700;
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+
+        .section-title {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            color: var(--accent-color);
+        }
+
+        .section-title:after {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--accent-color), var(--medium-brown));
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+
+        .location-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('static/ruang_tamu.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .cta-btn {
+            background: linear-gradient(45deg, var(--accent-color), var(--dark-brown));
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.4);
+        }
+
+        .cta-btn:hover {
+            background: linear-gradient(45deg, var(--dark-brown), var(--accent-color));
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(139, 69, 19, 0.6);
+        }
+
+        .location-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .location-list li {
+            margin-bottom: 15px;
+            padding-left: 35px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .location-list li:hover {
+            transform: translateX(5px);
+        }
+
+        .location-list li i {
+            position: absolute;
+            left: 0;
+            top: 3px;
+            color: var(--accent-color);
+            font-size: 1.2em;
+        }
+
+        .amenities-section {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .highlight {
+            background: linear-gradient(transparent 60%, rgba(139, 69, 19, 0.2) 40%);
+            display: inline;
+            padding: 0 5px;
+        }
+
+        /* Modal styles for full-size image viewing */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90vh;
+            animation: zoom 0.6s;
+        }
+
+        @keyframes zoom {
+            from {
+                transform: scale(0)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: var(--accent-color);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* See more/less button for gallery */
+        .see-more-btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background: linear-gradient(45deg, var(--accent-color), var(--medium-brown));
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            margin: 20px auto;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .see-more-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hidden-gallery {
+            display: none;
+        }
+
+        /* Additional styles for contact section */
+        .contact-info {
+            background: linear-gradient(45deg, rgba(139, 69, 19, 0.1), rgba(205, 133, 63, 0.1));
+            padding: 20px;
+            border-radius: 15px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .contact-info i {
+            color: var(--accent-color);
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">UMMI HOMESTAY</div>
+    </div>
+
+    <div class="container">
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1>Selamat Datang ke Ummi Homestay</h1>
+                <p class="lead">Nikmati penginapan yang selesa dan strategik di Kota Bharu, Kelantan</p>
+                <button class="cta-btn">Tempah Sekarang</button>
+            </div>
+        </div>
+
+        <h2 class="text-center mb-5 section-title">Alami Keselesaan & Ketenangan</h2>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-card floating">
+                    <i class="fas fa-map-marker-alt feature-icon"></i>
+                    <h4>Lokasi Strategik</h4>
+                    <p>Terletak di Kota Bharu berdekatan dengan Pasar Wakaf Che Yeh dan kemudahan awam lain.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card floating">
+                    <i class="fas fa-car feature-icon"></i>
+                    <h4>Tempat Letak Kereta</h4>
+                    <p>Kemudahan tempat letak kereta yang selamat untuk kenderaan anda.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card floating">
+                    <i class="fas fa-home feature-icon"></i>
+                    <h4>Homestay Yang Selesa</h4>
+                    <p>Nikmati suasana tenang dan selesa semasa percutian anda.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="location-section">
+            <h3 class="text-center mb-4 section-title">Lokasi Strategik</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4><span class="highlight">Berdekatan Dengan:</span></h4>
+                    <ul class="location-list">
+                        <li><i class="fas fa-clock"></i> 3 minit ke Pantai Timor Mart & kedai makan</li>
+                        <li><i class="fas fa-clock"></i> 3 minit ke Pasar Borong Wakaf Che Yeh</li>
+                        <li><i class="fas fa-clock"></i> 8 minit ke Lotus's</li>
+                        <li><i class="fas fa-clock"></i> 8 minit ke Aeon Mall</li>
+                        <li><i class="fas fa-clock"></i> 8 minit ke Terminal Bas</li>
+                        <li><i class="fas fa-clock"></i> 10 minit ke KB Mall</li>
+                        <li><i class="fas fa-clock"></i> 20 minit ke Pantai Cahaya Bulan (PCB)</li>
+                        <li><i class="fas fa-clock"></i> 30 minit ke Airport Sultan Ismail Petra</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <div class="feature-card">
+                        <i class="fas fa-map-marked-alt feature-icon"></i>
+                        <h5>Lokasi Mudah Dijumpai</h5>
+                        <p>Terletak di kawasan yang tenang tetapi masih berdekatan dengan semua kemudahan utama di Kota
+                            Bharu, Kelantan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="amenities-section">
+            <h3 class="text-center mb-4 section-title">Kemudahan Kami</h3>
+            <div class="row">
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="amenity-card" onclick="openModal('static/ruang_tamu.jpg', 'Ruang Tamu')">
+                        <img src="static/ruang_tamu.jpg" alt="Ruang Tamu" class="amenity-image">
+                        <h5 class="amenity-title">Ruang Tamu</h5>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="amenity-card" onclick="openModal('static/tv.jpg', 'TV')">
+                        <img src="static/tv.jpg" alt="TV" class="amenity-image">
+                        <h5 class="amenity-title">TV</h5>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="amenity-card" onclick="openModal('static/peti_sejuk.jpg', 'Peti Sejuk')">
+                        <img src="static/peti_sejuk.jpg" alt="Peti Sejuk" class="amenity-image">
+                        <h5 class="amenity-title">Peti Sejuk</h5>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="amenity-card" onclick="openModal('static/meja_makan.jpg', 'Meja Makan')">
+                        <img src="static/meja_makan.jpg" alt="Meja Makan" class="amenity-image">
+                        <h5 class="amenity-title">Meja Makan</h5>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="amenity-card" onclick="openModal('static/coway.jpg', 'Coway')">
+                        <img src="static/coway.jpg" alt="Coway" class="amenity-image">
+                        <h5 class="amenity-title">Mesin Air Coway</h5>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="amenity-card" onclick="openModal('static/iron.jpg', 'Seterika')">
+                        <img src="static/iron.jpg" alt="Seterika" class="amenity-image">
+                        <h5 class="amenity-title">Seterika</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12 text-center">
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt feature-icon"></i>
+                        <h5>Keselamatan Terjamin</h5>
+                        <p>Tingkap bergrill untuk keselamatan anda dan keluarga.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="text-center mt-5 mb-4 section-title">Galeri</h3>
+        <div class="row image-gallery">
+            <!-- Initial visible gallery items -->
+            <div class="col-md-4">
+                <div class="gallery-item" onclick="openModal('static/ruang_tamu.jpg', 'Ruang Tamu Moden')">
+                    <img src="static/ruang_tamu.jpg" alt="Ruang Tamu">
+                    <div class="gallery-overlay">
+                        <h5>Ruang Tamu</h5>
+                        <p>Ruang tamu yang luas dan selesa</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="gallery-item" onclick="openModal('static/bilik1.jpg', 'Bilik Tidur 1')">
+                    <img src="static/bilik1.jpg" alt="Bilik Tidur">
+                    <div class="gallery-overlay">
+                        <h5>Bilik Tidur 1</h5>
+                        <p>Mempunyai kipas dan pendingin hawa.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="gallery-item" onclick="openModal('static/bilik2.jpg', 'Bilik Tidur 2')">
+                    <img src="static/bilik2.jpg" alt="bilik2">
+                    <div class="gallery-overlay">
+                        <h5>Bilik Tidur 2</h5>
+                        <p>Mempunyai kipas dan pendingin hawa.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden gallery items that will be shown when clicking "Lihat Lagi" -->
+        <div class="row image-gallery hidden-gallery" id="extraGallery">
+            <div class="col-md-4">
+                <div class="gallery-item" onclick="openModal('static/parking.jpg', 'Parking')">
+                    <img src="static/parking.jpg" alt="Parking">
+                    <div class="gallery-overlay">
+                        <h5>Parking</h5>
+                        <p>Parking berpagar</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="gallery-item" onclick="openModal('static/tandas1.jpg', 'Bilik Air 1')">
+                    <img src="static/tandas1.jpg" alt="Bilik Air">
+                    <div class="gallery-overlay">
+                        <h5>Bilik Air 1</h5>
+                        <p>Bilik air yang bersih</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="gallery-item" onclick="openModal('static/tandas2.jpg', 'Bilik Air 2')">
+                    <img src="static/tandas2.jpg" alt="Bilik Air 2">
+                    <div class="gallery-overlay">
+                        <h5>Bilik Air 2</h5>
+                        <p>Bilik air yang bersih</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="gallery-item" onclick="openModal('static/pintu.jpg', 'Pintu')">
+                    <img src="static/pintu.jpg" alt="Pintu">
+                    <div class="gallery-overlay">
+                        <h5>Pintu Bergrill</h5>
+                        <p>Pintu dilengkapi dengan grill untuk keselamatan pelanggan kami.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="gallery-item" onclick="openModal('static/aircond.jpg', 'Aircond')">
+                    <img src="static/aircond.jpg" alt="Aircond">
+                    <div class="gallery-overlay">
+                        <h5>Pendingin Hawa</h5>
+                        <p>Pendingin hawa yang sejuk.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="gallery-item" onclick="openModal('static/kiblat.jpg', 'Kiblat')">
+                    <img src="static/kiblat.jpg" alt="Kiblat">
+                    <div class="gallery-overlay">
+                        <h5>Penunjuk Kiblat</h5>
+                        <p>Penunjuk kiblat dan sejadah juga disediakan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <div class="see-more-btn" id="seeMoreBtn" onclick="toggleGallery()">Lihat Lagi</div>
+        </div>
+
+        <h3 class="text-center mt-5 mb-4 section-title">Ulasan Tetamu</h3>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="feedback-card">
+                    <img src="/api/placeholder/80/80" alt="Tetamu 1">
+                    <h5>Sarah K.</h5>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Penginapan yang sangat menarik! Tempatnya cantik dan sangat selesa."</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feedback-card">
+                    <img src="/api/placeholder/80/80" alt="Tetamu 2">
+                    <h5>Mike R.</h5>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Lokasi yang sempurna dan berdekatan dengan Pasar Wakaf Che Yeh!"</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feedback-card">
+                    <img src="/api/placeholder/80/80" alt="Tetamu 3">
+                    <h5>Lisa M.</h5>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Pasti akan datang lagi! Suka lokasinya yang dekat dengan semua tempat menarik di Kota Bharu."
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <h3 class="mb-4 section-title">Tempah Sekarang</h3>
+                <p>Hubungi kami untuk tempahan atau pertanyaan lanjut:</p>
+                <div class="contact-info mt-3">
+                    <p><i class="fas fa-phone"></i> +60 179866411</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for full-size image viewing -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <div class="whatsapp-button">
+        <a href="https://wa.me/yourwhatsappnumber" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            Tempah Sekarang
+        </a>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="{{ url_for('static', filename='background_sound.mp3') }}" type="audio/mpeg">
+    </audio>
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function () {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Modal functionality for image viewing
+        function openModal(imgSrc, imgTitle) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = "block";
+            modalImg.src = imgSrc;
+        }
+
+        // Close the modal
+        function closeModal() {
+            document.getElementById('imageModal').style.display = "none";
+        }
+
+        // Toggle gallery visibility
+        function toggleGallery() {
+            const extraGallery = document.getElementById('extraGallery');
+            const seeMoreBtn = document.getElementById('seeMoreBtn');
+
+            if (extraGallery.classList.contains('hidden-gallery')) {
+                extraGallery.classList.remove('hidden-gallery');
+                seeMoreBtn.textContent = 'Lihat Kurang';
+            } else {
+                extraGallery.classList.add('hidden-gallery');
+                seeMoreBtn.textContent = 'Lihat Lagi';
+            }
+        }
+        // Auto-play Background Sound
+        document.addEventListener('DOMContentLoaded', function () {
+            var audio = document.getElementById("bg-music");
+            if (audio) {
+                audio.volume = 0.5;
+                var playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        console.log("Audio playing automatically");
+                    }).catch(error => {
+                        console.log("Autoplay prevented. Waiting for user interaction.");
+                        document.addEventListener('click', function playOnFirstClick() {
+                            audio.play();
+                            document.removeEventListener('click', playOnFirstClick);
+                        });
+                    });
+                }
+            }
+        });
+    </script>
